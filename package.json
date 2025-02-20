@@ -1,0 +1,46 @@
+{
+  "name": "liff-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "cross-env NODE_ENV=production node server.mjs",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.4.0",
+    "@flaticon/flaticon-uicons": "^3.3.1",
+    "@line/bot-sdk": "^9.4.1",
+    "@line/liff": "^2.23.2",
+    "@next/bundle-analyzer": "^14.2.13",
+    "@next/env": "^14.2.7",
+    "antd": "^5.22.1",
+    "apexcharts": "^4.2.0",
+    "axios": "^1.7.7",
+    "cross-env": "^7.0.3",
+    "http-proxy-middleware": "^3.0.2",
+    "jose": "^5.9.3",
+    "js-cookie": "^3.0.5",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
+    "moment": "^2.30.1",
+    "next": "^14.2.18",
+    "react": "^18",
+    "react-apexcharts": "^1.7.0",
+    "react-dom": "^18",
+    "react-icons": "^5.3.0",
+    "react-super-responsive-table": "^6.0.0",
+    "server-only": "^0.0.1",
+    "sharp": "^0.33.5",
+    "styled-components": "^6.1.13",
+    "swiper": "^11.1.14"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.11",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}
