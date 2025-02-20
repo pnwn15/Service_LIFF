@@ -154,7 +154,7 @@ function LoginPage() {
                         </div>
                         <div className="flex items-start mb-5">
                             <div className="flex items-center h-5">
-                                <Checkbox onChange={onChange}>Remember me</Checkbox>
+                                <Checkbox onChange={onChange}>Remember me 30 day</Checkbox>
                             </div>
                         </div>
                         <button type="submit" className="shadow-md text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-2xl text-lg w-full sm:w-auto px-5 py-2.5 text-center bg-black dark:hover:bg-black dark:focus:ring-blue-800">Login</button>
