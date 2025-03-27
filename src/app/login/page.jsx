@@ -64,8 +64,6 @@ function LoginPage() {
 
     const popup = (type, msg) => {
         messageApi.open({ type: type, content: msg });
-
-
     }
 
 
@@ -181,30 +179,7 @@ function LoginPage() {
                         </button>
                     </form>
                     {/* Modal dialog */}
-                    {/* Modal dialog */}
-                    <Modal
-                        visible={isModalVisible}
-                        onOk={handleOk}
-                        onCancel={handleCancel}
-                        footer={null}
-                        width="50%"
-                        style={{ top: '20%', background: 'transparent' }} // ปรับพื้นหลังเป็น transparent
-                        bodyStyle={{ background: 'transparent' }} // ปรับพื้นหลังใน body ของ modal ให้โปร่งใส
-                    >
-                        {/* รูปคนวิ่ง */}
-                        <div className="flex justify-center gap-3 w-full bg-transparent items-center">
-                            <Image
-                                src="/load.gif"
-                                alt="Running Person"
-                                layout="intrinsic"
-                                objectFit="cover"
-                                width={100}
-                                height={100}
-                                priority
-                                className="rounded-full"
-                            />
-                        </div>
-                    </Modal>
+                   
 
                 </div>
             </div>

@@ -56,7 +56,8 @@ const NavbarAdmin = ({ children }) => {
       <header className="bg-[#313A46] text-white shadow-md">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="hidden md:flex">
-            <Image className="w-18 h-14" src="/logo.png" />
+            <img className="w-18 h-14" src="/logo.png" />
+
           </div>
           {/* Left side - Navigation Links */}
           <div className="hidden md:flex space-x-4">
