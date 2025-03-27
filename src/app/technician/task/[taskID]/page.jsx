@@ -4,7 +4,12 @@ import Image from 'next/image'
 import {
     InfoCircleOutlined,
     CalendarOutlined,
-    ClockCircleOutlined
+    ClockCircleOutlined,
+    WarningOutlined,
+    UserOutlined,
+    MessageOutlined,
+    HomeOutlined,
+    CaretDownOutlined
 } from '@ant-design/icons';
 import { Badge } from 'antd';
 import { FaArrowLeft, FaL } from "react-icons/fa6";
@@ -112,40 +117,60 @@ function TaskPage({ params }) {
                             <div className='h-[80%] bg-pink-400x max-h- p-2'>
                                 <div className=" w-full bg-white/50  h-[100%]  overflow-scroll p-2 rounded-2xl">
                                     <div className=' bg-purple-200x h-full w-full'>
+                                        <div className='flex mx-2  justify-between font10'>
+                                            <div className='flex justify-center items-center gap-1 font10 font-bold'>
+                                                <Badge status={StatusCheck(data.status)} />
+                                                <p className={StatusTextCheck(data.status)}>{data.status}</p>
+                                            </div>
+                                            <div className="flex justify-center items-center gap-1">
+                                                <p className='line-clamp-2 font10'> {FormatDate(data.create_date)}</p>
+                                            </div>
+                                        </div>
+                                        <div className='flex bg-blue-300x px-1 border-b-2 border-gray-400 pt-4 justify-between'>
+                                            <div className=' text-base line-clamp-2 text-left'>
+                                                <WarningOutlined /> Case:
+                                            </div>
+                                            <div className='font-bold text-base line-clamp-2 text-left'>
+                                                {data.name}
+                                            </div>
+                                        </div>
+                                        <div className='flex bg-blue-300x px-1 border-b-2 border-gray-400 justify-between'>
+                                            <div className=' text-base line-clamp-2'>
+                                                <UserOutlined /> Repair Requester: 
+                                            </div>
+                                            <div className='font-bold text-base line-clamp-2'>
+                                                 {data.responsible}
+                                            </div>
+                                        </div>
+
+                                        <div className='flex flex-col w-full px-1 font10 bg-pink-200x border-b-2 border-gray-400'>
+                                            <div className='flex flex-row gap-1 justify-between'>
+                                                <div className=' text-base w-auto'>
+                                                    <MessageOutlined /> Detail:
+                                                </div>
+                                                <div className="text-left text-base line-clamp-3 font-bold whitespace-pre-line">
+                                                    <p dangerouslySetInnerHTML={{ __html: stripHtmlTags(data.detail).replace(/\n/g, "<br>") }} />
+                                                </div>
+                                            </div>
+                                        </div>
 
 
-                                        <div className='flex justify-between bg-blue-300x px-1 pt-4'>
-                                            <div className='flex gap-1  items-start w-auto  '>
-                                                <CalendarOutlined className='' />
-                                                <div className='font-bold  max-w-[175px] font10  line-clamp-2 text-left'>{data.name}</div>
-                                            </div>
-                                            <div className='flex flex-col justify-start items-end font10'>
-                                                <div className='flex justify-center items-center gap-1 font10 font-bold'>
-                                                    <Badge status={StatusCheck(data.status)} />
-                                                    <p className={StatusTextCheck(data.status)}>{data.status}</p>
-                                                </div>
-                                                <div className="flex justify-center items-center gap-1">
-                                                    <ClockCircleOutlined />
-                                                    <p className='line-clamp-2 font10'> {FormatDate(data.create_date)}</p>
-                                                </div>
+                                        <div className='flex w-full px-1 font10 border-b-2 border-gray-400 bg-blue-200x'>
+                                            <div className='flex justify-between flex-wrap gap-1 w-full'>
+                                                <div className='text-base flex items-center w-auto'><HomeOutlined /> Location: </div>
+                                                <div className=' font-bold w-auto'>{data.location}</div>
                                             </div>
                                         </div>
-                                        <div className='flex flex-col w-full px-1 font10 bg-pink-200x mt-3'>
-                                            <div className='flex flex-row gap-1'>
-                                                <div className='font-bold  w-auto '> Detail:</div>
-                                                <div className="text-left line-clamp-3 whitespace-pre-line "><p dangerouslySetInnerHTML={{ __html: stripHtmlTags(data.detail).replace(/\n/g, "<br>") }} /></div>
-                                            </div>
-                                        </div>
-                                        <div className='flex flex-col w-full px-1 font10 bg-blue-200x mt-3'>
-                                            <div className='flex flex-row gap-1'>
-                                                <div className='font-bold  w-auto '> Address:</div>
-                                                <div className="bg-yellow-200x">{data.location}</div>
-                                            </div>
-                                        </div>
+
                                         <div className='flex flex-col w-full px-1 font10 bg-blue-200x mt-3'>
                                             {/* <ParticipantTable data={data} id={taskID} updatefn={SetRenderTrigger} /> */}
                                         </div>
-                                        <div className='flex flex-col w-full px-1 font10 bg-blue-200x mt-3'>
+                                        <div className='flex  flex-col w-full px-1 font10 bg-blue-200x mt-3'>
+                                            <h1 className='flex justify-start gap-2 mb-6 text-sm font-bold  '>
+                                                <span >All Equipment</span> 
+                                                <CaretDownOutlined />
+                                            </h1>
+
                                             <EquipmentTable id={taskID} data={data} />
                                         </div>
                                     </div>

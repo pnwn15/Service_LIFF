@@ -179,6 +179,7 @@ function EquipmentUpdatePage({ params }) {
     };
 
 
+
     // ฟังก์ชันจัดการการอัพโหลดวิดีโอ
     const handleVideoUploadAfter = (e) => {
         const file = e.target.files[0];
@@ -280,7 +281,7 @@ function EquipmentUpdatePage({ params }) {
 
     const steps = [
         {
-            title: 'First',
+            title: 'ขั้นตอนที่1',
             status: 'process',
             icon: <LoadingOutlined />,
             content: (
@@ -410,10 +411,10 @@ function EquipmentUpdatePage({ params }) {
             ),
         },
         {
-            title: 'Second',
+            title: 'ขั้นตอนที่2',
             content: (
-                <div>
-                    <div className='flex font12 gap-2 break-words'>
+                <div className='mt-20'>
+                    <div className='flex font12 gap-2 break-words '>
                         <div className='whitespace-nowrap leading-[2]'>Status:</div>
                         <Select
                             /* disabled={!formData.write} */
@@ -434,13 +435,14 @@ function EquipmentUpdatePage({ params }) {
                         </Select>
                     </div>
                     <div className='flex flex-col font12 gap-2 break-words mt-3 leading-[2] mb-3'>
-                        <div className='whitespace-nowrap'>Note:</div>
+                        <div className='whitespace-nowrap'>รายละเอียดเพิ่มเติม (ระบุ/เวลาถึงหน้างาน):</div>
                         <TextArea name='note' /* disabled={!formData.write} */ rows={4} value={note} placeholder='กรุณากรอกข้อมูล'  /* defaultValue={"dd"} */ onChange={handleNoteChange} className='w-full  border border-gray-300 rounded-md p-1' />
                     </div>
+                    
                 </div>),
         },
         {
-            title: 'Last',
+            title: 'ขั้นตอนที่3',
             content: (
                 <div className="flex flex-col justify-center items-center m-3">
                     <div className='flex gap-1'>
@@ -790,7 +792,9 @@ function EquipmentUpdatePage({ params }) {
                                                 <div>{formData.equipment_sr}</div>
                                             </div>
 
-                                            <div>
+                                            <div>              
+                                                <Steps responsive={false} current={current} items={items} className="mt-16 " labelPlacement="vertical" />
+                                                <div >{steps[current].content}</div>
                                                 <div className="flex justify-end mt-4 ">
                                                     {current > 0 && (
                                                         <Button onClick={prev} className="mr-2">
@@ -807,12 +811,7 @@ function EquipmentUpdatePage({ params }) {
                                                             Done
                                                         </Button>
                                                     )}
-
                                                 </div>
-                                                <Steps responsive={false} current={current} items={items} className="mt-4 mb-4" labelPlacement="vertical" />
-
-                                                <div>{steps[current].content}</div>
-
 
                                             </div>
 

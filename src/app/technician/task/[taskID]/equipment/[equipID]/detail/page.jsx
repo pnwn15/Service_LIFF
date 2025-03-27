@@ -211,8 +211,8 @@ function DetailPage({ params }) {
 
                     </div>
                   </div>
-                  <div className="w-full my-3 bg-white rounded-xl px-2 pt-3">
-                    <div className='bg-green-400x flex flex-col'>
+                  <div className="w-full my-3 bg-white shadow-md border border-gray-300 border-b-2 border-t-2 border-l-2 border-r-2 rounded-xl px-2 pt-3">
+                    <div className='bg-green-400x gap-4 flex flex-col'>
                       <div className='flex self-end gap-2'>
                         {
                           // (formData.write) &&
@@ -221,20 +221,20 @@ function DetailPage({ params }) {
                           </>
                         }
                       </div>
-                      <div className='flex font12 gap-2 break-words leading-[2]'>
+                      <div className='flex font12 gap-2 justify-between border-b-2 border-gray-400 break-words leading-[2]'>
                         <div className='whitespace-nowrap'><span className='font-bold'>Name:</span></div>
                         <div>{formData.equipment_name}</div>
                       </div>
-                      <div className='flex font12 gap-2 break-words leading-[2]'>
+                      <div className='flex font12 justify-between  gap-2 border-b-2 border-gray-400 break-words leading-[2]'>
                         <div className='whitespace-nowrap'><span className='font-bold'>Serial Number:</span></div>
                         <div>{formData.equipment_sr}</div>
                       </div>
-                      <div className='flex font12 gap-2 break-words leading-[2]'>
+                      <div className='flex font12 justify-between  gap-2 border-b-2 border-gray-400 break-words leading-[2]'>
                         <div className='whitespace-nowrap'><span className='font-bold'>Status:</span></div>
                         <div>{LastStatus}</div>
                       </div>
-                      <div className='flex font12 gap-2 break-words leading-[2]'>
-                        <div className='whitespace-nowrap'><span className='font-bold'>Note:</span>
+                      <div className='flex font12 justify-between  gap-2 border-b-2 border-gray-400 break-words leading-[2]'>
+                        <div className='whitespace-nowrap'><span className='font-bold'>Other:</span>
                         </div>
                         <p dangerouslySetInnerHTML={{ __html: stripHtmlTags(note).replace(/\n/g, "<br>") }} />
                       </div>

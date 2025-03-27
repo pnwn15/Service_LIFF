@@ -9,7 +9,8 @@ import {
 import axios from 'axios';
 import { getUser } from '@/lib/userManipulate';
 import JobCard_C from '@/components/c_Job-Card';
-
+import SlideText from '@/components/Side';
+import { Divider, Modal } from 'antd';
 
 function TaskPage() {
 
@@ -47,6 +48,20 @@ function TaskPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        // เมื่อเข้าหน้านี้ จะทำให้ modal แสดง
+        setIsModalVisible(true);
+    }, []); // Empty array เพื่อให้ทำงานเพียงครั้งเดียวเมื่อเพจโหลดเสร็จ
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
     return (
      
         <div className="w-full  h-[100vh] [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] bg-red-700 bg-gradient-to-b from-[#ff0000] via-red-100 to-[#ff0000]">
@@ -57,15 +72,21 @@ function TaskPage() {
                             <InfoCircleOutlined className="text-gray-500 text-3xl fixed top-3 right-3" />
                         </button>
                     </div>
-                </div>
+            </div>
+            <SlideText />
                 <div className='h-[85%] bg-pink-400x max-h- p-4'>
-                  
-                    <div className=" w-full bg-white/50  h-[100%] p-3 rounded-lg">
-                        <div className='mb-2 font-bold font12 flex gap-1'>
-                            <FileDoneOutlined className='text-xl' />
-                            <div>Request</div>
+               
+                <div className=" w-full bg-white/50 shadow-white shadow-2xl  h-[100%] p-3 rounded-lg">
+                    <Divider>
+                    <div className='mb-2 font-bold font12 flex gap-1 items-center'>
+                        <FileDoneOutlined className='text-xl' />
+                        <div className=" px-2"> {/* เส้นขีดแนวนอน */}
+                            Request
                         </div>
-                    <div className='overflow-scroll h-[95%] custom-scrollbar'>
+                        </div>
+                    </Divider>
+
+                    <div className='overflow-scroll h-[95%] mt-3 custom-scrollbar'>
                             {
                                 data.map((task, index) => (
                                     <JobCard_C key={index} path={`/customer/task/${task.id}`} task={task} />
@@ -73,7 +94,18 @@ function TaskPage() {
                             }
                         </div>
                     </div>
-                </div>
+            </div>
+            {/* Modal */}
+            <Modal
+                title="Welcome To Service"
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                okText="Got it"
+                
+            >
+                <p>Welcome to the page! You can add your message here.</p>
+            </Modal>
             </div>
      
     )

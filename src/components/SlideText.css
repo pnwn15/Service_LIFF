@@ -1,0 +1,17 @@
+/* การตั้งค่าแอนิเมชันที่ใช้ใน Tailwind */
+@keyframes slideRight {
+  0% {
+    transform: translateX(100%); /* เริ่มจากตำแหน่งซ้ายสุด */
+  }
+  50% {
+    transform: translateX(0); /* กลางของแอนิเมชัน */
+  }
+  100% {
+    transform: translateX(-100%); /* เคลื่อนที่ไปทางขวาสุด */
+  }
+}
+
+/* การนำแอนิเมชันไปใช้ใน Tailwind */
+.animate-slideRight {
+  animation: slideRight 30s ease-in-out infinite;
+}

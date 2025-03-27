@@ -1,15 +1,17 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { Button, message, Steps, Form, Input, Select } from 'antd';
-import { CloudFilled, MinusCircleOutlined } from '@ant-design/icons';
+import { Button, message, Steps, Form, Input, Select, Divider } from 'antd';
+import { CloudFilled, MinusCircleOutlined, OrderedListOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import { getUser } from '@/lib/userManipulate';
 import Image from 'next/image';
 import axios from 'axios';
+import SlideText from '@/components/Side';
 const { TextArea } = Input;
 
 function CreateTicketForm() {
-
+  const [showDetails, setShowDetails] = useState(false);
+  const [showEquipment, setShowEquipment] = useState(false);
   const router = useRouter();
   const [current, setCurrent] = useState(0);
   const [form] = Form.useForm(); // Retain form state across steps
@@ -21,6 +23,12 @@ function CreateTicketForm() {
   const [selectedItems, setSelectedItems] = useState([]);
 
 
+  const toggleDetails = () => {
+    setShowDetails(prevState => !prevState); // สลับการแสดงรายละเอียด
+  };
+  const toggleEquipment = () => {
+    setShowEquipment(prevState => !prevState); // สลับการแสดงรายละเอียด
+  };
   const fetchUser = async () => {
     let result = {};
     try {
@@ -204,8 +212,6 @@ ${allData.detail}
           <Form.Item style={{ marginBottom: 2 }} label="Site" name="site" rules={[{ required: true, message: 'Please choose your site' }]}>
             <Select
               labelInValue
-
-
               style={{
                 width: "100%",
               }}
@@ -275,11 +281,11 @@ ${allData.detail}
               onChange={(value, option) => handleChangeEquipments(option)}
             />
           </Form.Item>
-          <div className="grid sm:grid-cols md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-2" >
+          <div className="grid sm:grid-cols mx-7 md:grid-cols-2  scale-105  lg:grid-cols-3 xl:grid-cols-4 gap-4 p-2" >
             {selectedItems.map((equip, index) => (
-              <div key={index} className="flex space-x-4 items-center  p-1 w-full h-24 rounded-lg shadow-lg border border-gray-200">
+              <div key={index} className="flex space-x-4 items-center  p-1 w-full h-24 rounded-lg shadow-lg shadow-black border border-gray-200">
                 {/* Display image */}
-                <div className='w-24 h-24 p-2'>
+                <div className='w-24  p-2'>
                   <Image
                     width={96}
                     height={96}
@@ -311,56 +317,83 @@ ${allData.detail}
     {
       title: 'Submission',
       content: (
-        <div className="space-y-4 p-4 bg-white rounded-lg shadow-md">
+        <div className="space-y-4 p-4 shadow-md border-b-2 border-t-4 border-l-4 border-r-4 border-gray-200   bg-white rounded-lg ">
           <Form.Item
-            label="Detail"
+            label="Detail (Time/Date/Other)"
             name="detail"
             rules={[{ required: true, message: 'Please enter valid detail' }]}
           >
             <TextArea
               style={{ minHeight: 200 }}
               maxLength={1000}
-              className="border rounded-lg"
+              className="border rounded-lg shadow-md shadow-black"
               placeholder="Enter any additional details..."
             />
           </Form.Item>
-          <h2 className="text-lg font-bold">Submission Details</h2>
-          <div className='w-full sm:flex-none md:flex-none lg:flex xl:flex'>
-            <div className="flex flex-col space-y-1 sm:w-full p-2">
-              <div className="flex justify-between">
-                <span className="font-semibold">Name:</span>
-                <span>{formData.name}</span>
+          <div className="w-full">
+            <div className='border p-2 flex flex-col justify-center shadow-lg border-gray-300 rounded-md' onClick={toggleDetails}>
+              <div className=" p-2">
+              <div className='flex mx-9 justify-between'>
+              <h2 className="text-lg  flex items-center font-bold [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)]">
+                Address
+                </h2>
+                <img className='w-14' src="/Google.png" alt="" />
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="font-semibold">Phone:</span>
-                <span>{formData.phone}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-semibold">Address:</span>
-                <span>{formData.address}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-semibold">District:</span>
-                <span>{formData.district}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-semibold">Sub-district:</span>
-                <span>{formData.subdistrict}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-semibold">Province:</span>
-                <span>{formData.province}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-semibold">Postal Code:</span>
-                <span>{formData.postalCode}</span>
+              <div className='w-full sm:flex-none md:flex-none lg:flex xl:flex'>
+                <div className="flex flex-col space-y-1   sm:w-full p-2">
+
+                  {/* แสดงรายละเอียดเมื่อเปิดใช้งาน */}
+                  {showDetails && (
+                    <div className="mt-2">
+                      <div className="flex justify-between border-b border-gray-500">
+                        <span className="font-semibold">Name:</span>
+                        <span>{formData.name}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-gray-500">
+                        <span className="font-semibold">Phone:</span>
+                        <span>{formData.phone}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-gray-500">
+                        <span className="font-semibold">Address:</span>
+                        <span>{formData.address}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-gray-500">
+                        <span className="font-semibold">District:</span>
+                        <span>{formData.district}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-gray-500">
+                        <span className="font-semibold">Sub-district:</span>
+                        <span>{formData.subdistrict}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-gray-500">
+                        <span className="font-semibold">Province:</span>
+                        <span>{formData.province}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-gray-500">
+                        <span className="font-semibold">Postal Code:</span>
+                        <span>{formData.postalCode}</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-
-              <div className="space-y-4 sm:w-full p-2">
-                <h3 className="font-semibold text-lg">Equipment:</h3>
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 h-[20%] ">
-                  {selectedItems.map((equip, index) => (
+           
+        
+            <div className='border p-2 flex flex-col mt-5 justify-center shadow-lg border-gray-300 rounded-md' onClick={toggleEquipment}>
+              <div className=" p-2">
+                <div className='flex mx-9 justify-between'>
+                  <h2 className="text-lg  flex items-center font-bold [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)]">
+                    Equidment
+                  </h2>
+                  <div className='border border-gray-500 rounded-2xl'>
+                    <img className='w-14' src="/cf.png" alt="" />
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-2 mt-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 h-[20%] ">
+                  
+                  {showEquipment && selectedItems.map((equip, index) => (
                     <div key={index} className="flex flex-col items-center p-2 rounded-lg shadow-lg border border-gray-200 bg-gray-50">
                       {/* Display image */}
                       <div className="w-18 h-18 mb-2">
@@ -381,8 +414,10 @@ ${allData.detail}
                       </div>
                     </div>
                   ))}
+                  
                 </div>
               </div>
+            </div>
           </div>
         </div>
       ),
@@ -397,6 +432,7 @@ ${allData.detail}
 
   return (
     <div className="w-full h-[100vh] bg-red-700 bg-gradient-to-b from-[#ff0000] via-red-100 to-[#ff0000]">
+      <SlideText />
       <div className="grid grid-cols-1">
         <div className="bg-slate-400x flex justify-center py-2">
           <div className="service_logo text-white text-[24px] [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)]">
@@ -408,15 +444,24 @@ ${allData.detail}
       <div className="h-[85%] p-4">
         <div className="w-full bg-white/50 h-[100%] rounded-2xl">
           <div className="bg-white h-full w-full rounded-lg overflow-scroll p-4">
-            <h2 className="text-center font-bold text-xl">Create New Ticket Form</h2>
+            <Divider style={{
+              borderColor: '#000000',
+            }}>
+            <div className='flex gap-2 justify-center' >
+              
+              <OrderedListOutlined />
+                <h2 className="text-center font-bold text-xl [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)]">Please fill in the form</h2>
+             
+              </div>
+            </Divider>
             <Form layout="vertical" form={form} className="space-y-1" onFinish={onFinish}>
               <Steps responsive={false} current={current} items={items} className="mt-6 mb-4" labelPlacement="vertical" />
 
               <div>{steps[current].content}</div>
 
-              <div className="flex justify-end mt-4">
+              <div className="flex justify-center pt-2">
                 {current > 0 && (
-                  <Button onClick={prev} className="mr-2">
+                  <Button onClick={prev} className="mr-2" style={{ backgroundColor: 'red', color: 'white' }}>
                     Previous
                   </Button>
                 )}
@@ -426,11 +471,12 @@ ${allData.detail}
                   </Button>
                 )}
                 {current === steps.length - 1 && (
-                  <Button type="primary" onClick={handleDone}>
+                  <Button type="primary" onClick={handleDone} style={{ backgroundColor: 'green', color: 'white' }}>
                     Submit
                   </Button>
                 )}
               </div>
+
 
             </Form>
           </div>

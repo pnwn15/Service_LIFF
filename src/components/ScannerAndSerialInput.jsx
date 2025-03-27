@@ -311,16 +311,16 @@ export default function ScannerAndSerialInput() {
 
 
     return (
-        <div className='bg-green-200x  flex flex-row gap-2 w-[80%] mt-5'>
+        <div className='bg-green-200x  flex flex-row gap-2 w-[80%] mt-5 justify-end'>
             {contextHolder}
-            <button onClick={() => showModal()} type="submit" className=" flex justify-center gap-3 shadow-md text-black w-[100%] focus:outline-none transition ease-in-out duration-150 focus:ring focus:ring-blue-300 font-bold rounded-2xl text-lg  px-5 py-2.5 text-center bg-white  ">
+            <button onClick={() => showModal()} type="submit" className=" flex justify-center gap-3 shadow-md text-black  focus:outline-none transition ease-in-out duration-150 focus:ring focus:ring-blue-300 font-bold rounded-full text-lg  px-5 py-2.5 text-center bg-white  ">
                 <BarcodeOutlined className='text-2xl' />
-                <div>Serial Number</div>
+                
             </button>
             <button
                 onClick={() => LiffScanner()}
 
-                type="submit" className="shadow-md  rounded-2xl max-w-16 w-16 text-black bg-white  focus:outline-none transition ease-in-out duration-150 focus:ring focus:ring-blue-300">
+                type="submit" className="shadow-md  rounded-full max-w-16 w-16 text-black bg-white  focus:outline-none transition ease-in-out duration-150 focus:ring focus:ring-blue-300">
                 <ScanOutlined className='text-3xl' />
             </button>
             <Modal

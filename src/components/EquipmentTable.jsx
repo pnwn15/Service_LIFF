@@ -124,7 +124,7 @@ function EquipmentTable({ id, data }) {
 
 
         return (
-            <div className="p-2 w-full h-auto rounded-lg shadow-md border border-gray-200 bg-white">
+            <div className="p-2 w-full h-auto rounded-lg shadow-md shadow-gray-300 border border-gray-300 border-b-2 border-r-2 border-t-2 border-l-2  bg-white">
                 <div className="flex flex-row items-center">
                     {/* Image Container */}
                     <div className='relative w-28 h-24 overflow-hidden bg-gray-100 rounded-md'>

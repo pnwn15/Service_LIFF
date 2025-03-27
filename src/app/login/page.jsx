@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Checkbox, message } from 'antd';
+import { Checkbox, message,Modal, Button } from 'antd';
 import axios from 'axios';
 import { getUser } from '@/lib/userManipulate';
 import Loading from '@/components/LoadingPage';
@@ -25,7 +25,21 @@ function LoginPage() {
         username: '',
         password: ''
     });
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        // การทำงานเมื่อกด "Ok" (หากต้องการให้มีการดำเนินการต่อ)
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        // การทำงานเมื่อกด "Cancel" (หากต้องการให้ปิด Dialog)
+        setIsModalVisible(false);
+    };
     const checkLogin = async () => {
         try {
             const user = await getUser()
@@ -75,27 +89,28 @@ function LoginPage() {
         // console.log('login pressed ', formData);
         e.preventDefault();
         try {
-
             const response = await axios.post('/api/sign-in', { formData });
 
             // console.log("response", response);
 
             if (response.data.success) {
                 popup('success', 'Login successful');
-               // popup('success', `/${response.data.Internal ? "technician" : "customer"}/task`)
+                // popup('success', `/${response.data.Internal ? "technician" : "customer"}/task`)
                 router.push(`/${response.data.Internal ? "technician" : "customer"}/task`);
             } else {
-                popup('error', response.data.error || 'something went wrong');
+                // ถ้าล็อกอินไม่สำเร็จ, ปิด Modal
+                popup('error', response.data.error || 'Something went wrong');
+                setIsModalVisible(false); // ปิด Modal เมื่อไม่สำเร็จ
             }
-
-
 
         } catch (err) {
             console.log(err);
-            popup('error', `something went wrong`);
+            popup('error', 'Something went wrong');
+            setIsModalVisible(false); // ปิด Modal เมื่อเกิดข้อผิดพลาด
         }
         // router.push('/task');
     }
+
     if(isLoading) return <Loading/>;
     return (
         <Suspense fallback={null}>
@@ -157,8 +172,40 @@ function LoginPage() {
                                 <Checkbox onChange={onChange}>Remember me 30 day</Checkbox>
                             </div>
                         </div>
-                        <button type="submit" className="shadow-md text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-2xl text-lg w-full sm:w-auto px-5 py-2.5 text-center bg-black dark:hover:bg-black dark:focus:ring-blue-800">Login</button>
+                        <button
+                            type="submit"
+                            className="shadow-md hover:bg-red-500 text-white focus:ring-4 focus:outline-none focus:ring-white font-bold rounded-2xl text-lg w-full sm:w-auto px-5 py-2.5 text-center bg-black  dark:focus:ring-blue-800"
+                            onClick={showModal} // เมื่อคลิกปุ่มนี้จะแสดง Modal
+                        >
+                            Login
+                        </button>
                     </form>
+                    {/* Modal dialog */}
+                    {/* Modal dialog */}
+                    <Modal
+                        visible={isModalVisible}
+                        onOk={handleOk}
+                        onCancel={handleCancel}
+                        footer={null}
+                        width="50%"
+                        style={{ top: '20%', background: 'transparent' }} // ปรับพื้นหลังเป็น transparent
+                        bodyStyle={{ background: 'transparent' }} // ปรับพื้นหลังใน body ของ modal ให้โปร่งใส
+                    >
+                        {/* รูปคนวิ่ง */}
+                        <div className="flex justify-center gap-3 w-full bg-transparent items-center">
+                            <Image
+                                src="/load.gif"
+                                alt="Running Person"
+                                layout="intrinsic"
+                                objectFit="cover"
+                                width={100}
+                                height={100}
+                                priority
+                                className="rounded-full"
+                            />
+                        </div>
+                    </Modal>
+
                 </div>
             </div>
         </Suspense>
