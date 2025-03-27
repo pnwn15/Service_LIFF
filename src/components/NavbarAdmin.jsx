@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ExclamationCircleFilled, LogoutOutlined } from "@ant-design/icons";
@@ -57,7 +56,7 @@ const NavbarAdmin = ({ children }) => {
       <header className="bg-[#313A46] text-white shadow-md">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="hidden md:flex">
-            <img className="w-18 h-14" src="/logo.png" />
+            <Image className="w-18 h-14" src="/logo.png" />
           </div>
           {/* Left side - Navigation Links */}
           <div className="hidden md:flex space-x-4">
